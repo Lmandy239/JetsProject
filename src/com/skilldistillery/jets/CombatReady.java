@@ -1,11 +1,9 @@
 package com.skilldistillery.jets;
 
-public class CombatReady extends fighterJet {
+public interface CombatReady  {
 
-	@Override
-	public void fight() {
-	
-		super.fight();
+default void fight() {
+		System.out.println("Rock'n Roll!!!!!");
 	}
 
 }

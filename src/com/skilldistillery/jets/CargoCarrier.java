@@ -1,11 +1,11 @@
 package com.skilldistillery.jets;
 
-public class CargoCarrier extends CargoPlane {
+public interface CargoCarrier {
 
-	@Override
-	public void loadCargo() {
-		super.loadCargo();
-	}
+ default void loadCargo() {
+	 System.out.println("Loading Cargo.....");
+ }
+ 
 
 	
 }
