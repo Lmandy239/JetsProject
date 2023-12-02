@@ -12,24 +12,31 @@ public abstract class Jet {
 
 	public  Jet(String model, double speed, int range, long price) {
 		super();
-		this.model = model;
-		this.speed = speed;
+		this.setModel(model);
+		this.setSpeed(speed);
 		this.range = range;
 		this.price = price;
 	}
 	
-	public void Fly() {
-		
+	abstract void fly();
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 	
-	public double getSpeedInLightYears() {
-		
-		
-		
-		
-		return speed;
-		
-	}
+
 	
 	
 }

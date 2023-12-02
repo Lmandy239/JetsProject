@@ -5,11 +5,23 @@ import java.util.ArrayList;
 public class AirField {
 	private ArrayList<Jet> jets = new ArrayList<>();
 
-	public ArrayList<Jet> getJets() {
-		return jets;
-	}
-
-	public void setJets(ArrayList<Jet> jets) {
-		this.jets = jets;
-	}
+	  public void addJet(Jet jet) {
+	        jets.add(jet);
+	    }
+	  
+	  
+	  public void removeJet(int index) {
+	        if (index >= 0 && index < jets.size()) {
+	            jets.remove(index);
+	        } else {
+	            System.out.println("Invalid index. Ship not removed.");
+	        }
+	    }
+	  
+	  
+	  
+	   public void listFleet() {
+	
+	    }
+	   
 }

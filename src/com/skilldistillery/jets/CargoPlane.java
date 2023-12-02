@@ -12,5 +12,20 @@ public class CargoPlane extends Jet {
 	public void loadCargo() {
 		
 	}
+	public double getSpeedInLightYears() {
+		double speedInlightYears = (getSpeed() / 670616629);
+		System.out.println(speedInlightYears + " light years");
+		
+		
+		return speedInlightYears;
+		
+	}
+	
+
+	@Override
+	void fly() {
+		
+		
+	}
 	
 }

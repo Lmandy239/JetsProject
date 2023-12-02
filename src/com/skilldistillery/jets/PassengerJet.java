@@ -12,4 +12,10 @@ public class PassengerJet extends Jet {
 		
 	}
 
+	@Override
+	void fly() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
