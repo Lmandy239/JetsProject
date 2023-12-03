@@ -9,6 +9,7 @@ public class JetsApplication {
 	private AirField airField = new AirField();
 	private int answer;
 
+
 	public static void main(String[] args) {
 		JetsApplication shipApp = new JetsApplication();
 		shipApp.initialAirField();
@@ -21,18 +22,22 @@ public class JetsApplication {
 	}
 
 	public void initialAirField() {
-	     
-	     airField.addJet(new PassengerJet("Coruscant shuttle", 70_000_000, 20000, 1_000_000_000));
-	     airField.addJet(new CargoPlane("YTA-30", 65_000_000, 1800, 50_000_000 ));
-	     airField.addJet(new fighterJet("X-Wing", 90_000_000, 1200, 250_000_000 ));
-	     airField.addJet(new fighterJet("Y-Wing", 80_000_000, 1100, 150_000_000));
-	     airField.addJet(new CargoPlane("Cargo ship", 60_000_000, 1600, 30_000_000));
+
+		airField.addJet(new PassengerJet("Coruscant shuttle", 70_000_000, 20000, 1_000_000_000));
+		airField.addJet(new CargoPlane("YTA-30", 65_000_000, 1800, 50_000_000));
+		airField.addJet(new fighterJet("X-Wing", 90_000_000, 1200, 250_000_000));
+		airField.addJet(new fighterJet("Y-Wing", 80_000_000, 1100, 150_000_000));
+		airField.addJet(new CargoPlane("Cargo ship", 60_000_000, 1600, 30_000_000));
 	}
 
 	public void runMenu() {
 		keyboard = new Scanner(System.in);
 		displayMenu();
 		answer = keyboard.nextInt();
+		if (answer > 9) {
+			System.out.println("You broke it bruh... quitting the application, next time use valid inputs");
+			quit();
+		}
 		do
 			switch (answer) {
 			case 1:
@@ -75,15 +80,14 @@ public class JetsApplication {
 	}
 
 	public void listFleet(ArrayList<Jet> jets) {
-		   if (jets.isEmpty()) {
-		        System.out.println("No jets in the fleet.");
-		    } else {
-		        for (int i = 0; i < jets.size(); i++) {
-		            Jet jet = jets.get(i);
-		            System.out.println("Jet " + (i + 1) + ": " + jet.toString());
-		        }
-	    }
-
+		if (jets.isEmpty()) {
+			System.out.println("No jets in the fleet.");
+		} else {
+			for (int i = 0; i < jets.size(); i++) {
+				Jet jet = jets.get(i);
+				System.out.println("Jet " + (i + 1) + ": " + jet.toString());
+			}
+		}
 		do {
 			System.out.println("Would you like to go back to the Main menu? (Press 1)");
 			answer = keyboard.nextInt();
@@ -93,6 +97,7 @@ public class JetsApplication {
 				System.out.println("Invalid answer!");
 			}
 		} while (answer != 1);
+
 
 	}
 
@@ -118,8 +123,6 @@ public class JetsApplication {
 
 		if (fastestJet != null) {
 			System.out.println("Fastest Jet: " + fastestJet.toString());
-		} else {
-			System.out.println("No jets in the fleet.");
 		}
 		do {
 			System.out.println("Would you like to go back to the Main menu? (Press 1)");
@@ -134,6 +137,13 @@ public class JetsApplication {
 	}
 
 	public void displayShipWithLongestRange() {
+
+		Jet jetWithLongestRange = airField.getJets().stream().max(Comparator.comparing(Jet::getRange)).orElse(null);
+
+		if (jetWithLongestRange != null) {
+			System.out.println("Jet with the longest range: " + jetWithLongestRange.toString());
+		}
+
 		do {
 			System.out.println("Would you like to go back to the Main menu? (Press 1)");
 			answer = keyboard.nextInt();
@@ -166,11 +176,11 @@ public class JetsApplication {
 
 	public void dogFighting() {
 		do {
-	        for (Jet jet : airField.getJets()) {
-	            if (jet instanceof CombatReady) {
-	                ((CombatReady) jet).fight();
-	            }
-	        }
+			for (Jet jet : airField.getJets()) {
+				if (jet instanceof CombatReady) {
+					((CombatReady) jet).fight();
+				}
+			}
 
 			System.out.println("Would you like to go back to the Main menu? (Press 1)");
 			answer = keyboard.nextInt();
@@ -184,23 +194,23 @@ public class JetsApplication {
 	}
 
 	public void addShip() {
-		  System.out.println("\nAdd a new jet to the fleet:");
+		System.out.println("\nAdd a new ship to the fleet:");
 
-		    int jetTypeChoice;
-		    do {
-		        System.out.println("Select the type of jet:");
-		        System.out.println("1. Passenger Jet");
-		        System.out.println("2. Cargo Jet");
-		        System.out.println("3. Fighter Jet");
+		int jetTypeChoice;
+		do {
+			System.out.println("Select the type of ship:");
+			System.out.println("1. Passenger ship");
+			System.out.println("2. Cargo ship");
+			System.out.println("3. Fighter ship");
 
-		        System.out.print("Enter your choice: ");
-		        jetTypeChoice = keyboard.nextInt();
-		    } while (jetTypeChoice < 1 || jetTypeChoice > 3);
+			System.out.print("Enter your choice: ");
+			jetTypeChoice = keyboard.nextInt();
+		} while (jetTypeChoice < 1 || jetTypeChoice > 3);
 
-		    Jet newJet = createJet(jetTypeChoice);
+		Jet newJet = createJet(jetTypeChoice);
 
-		    airField.addJet(newJet);
-		    System.out.println("Jet added to the fleet: " + newJet.toString());
+		airField.addJet(newJet);
+		System.out.println("Ship added to the fleet: " + newJet.toString());
 		do {
 			System.out.println("Would you like to go back to the Main menu? (Press 1)");
 			answer = keyboard.nextInt();
@@ -215,40 +225,54 @@ public class JetsApplication {
 
 	public Jet createJet(int jetTypeChoice) {
 		System.out.println("Enter the model: ");
-	    String model = keyboard.next();
+		String model = keyboard.next();
 
-	    System.out.println("Enter the speed (in MPH): ");
-	    int speed = keyboard.nextInt();
+		System.out.println("Enter the speed (in MPH): ");
+		int speed = keyboard.nextInt();
 
-	    System.out.println("Enter the range: ");
-	    int range = keyboard.nextInt();
+		System.out.println("Enter the range (Parsecs): ");
+		int range = keyboard.nextInt();
 
-	    System.out.println("Enter the price: ");
-	    long price = (long) keyboard.nextDouble();
+		System.out.println("Enter the price (Credits): ");
+		long price = (long) keyboard.nextDouble();
 
-	    switch (jetTypeChoice) {
-	        case 1:
-	            return new PassengerJet(model, speed, range, price);
-	        case 2:
-	            return new CargoPlane(model, speed, range, price);
-	        case 3:
-	            return new fighterJet(model, speed, range, price);
-	        default:
-	            throw new IllegalArgumentException("Invalid jet type choice.");}
+		switch (jetTypeChoice) {
+		case 1:
+			return new PassengerJet(model, speed, range, price);
+		case 2:
+			return new CargoPlane(model, speed, range, price);
+		case 3:
+			return new fighterJet(model, speed, range, price);
+		default:
+			throw new IllegalArgumentException("Invalid Ship type choice.");
+		}
 	}
 
 	public void removeShip() {
-		do {
-			System.out.println("Would you like to go back to the Main menu? (Press 1)");
-			answer = keyboard.nextInt();
-			if (answer == 1) {
-				runMenu();
-			} else if (answer != 1) {
-				System.out.println("Invalid answer!");
-			}
-		} while (answer != 1);
+		ArrayList<Jet> jets = airField.getJets();
+		System.out.println("Displaying Ships, which one would you like to remove? ");
+		 System.out.print("Enter the number of the ship you want to remove: ");
+		    int shipNumberToRemove = keyboard.nextInt();
 
-	}
+		    if (shipNumberToRemove >= 1 && shipNumberToRemove <= jets.size()) {
+		        Jet removedJet = jets.remove(shipNumberToRemove - 1);
+		        System.out.println("Removed Ship: " + removedJet.toString());
+		    } else {
+		        System.out.println("Invalid ship number.");
+		    }
+		    
+		    do {
+		        System.out.println("Would you like to go back to the Main menu? (Press 1)");
+		        answer = keyboard.nextInt();
+		        if (answer == 1) {
+		            runMenu();
+		        } else if (answer != 1) {
+		            System.out.println("Invalid answer!");
+		        }
+		    } while (answer != 1);
+		}
+	
+	
 
 	public void quit() {
 
