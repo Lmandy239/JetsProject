@@ -13,7 +13,7 @@ public class fighterJet extends Jet implements CombatReady{
 	}
 
 	public double getSpeedInLightYears() {
-		double speedInlightYears = (getSpeed() / 670616629);
+		double speedInlightYears = (getSpeed() / 60616629);
 		System.out.println(speedInlightYears + " light years");
 		
 		
@@ -27,8 +27,15 @@ public class fighterJet extends Jet implements CombatReady{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 
+
+	@Override
+	public void fight() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 	
 }

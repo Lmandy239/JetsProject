@@ -1,6 +1,6 @@
 package com.skilldistillery.jets;
 
-public class CargoPlane extends Jet {
+public class CargoPlane extends Jet implements CargoCarrier {
 
 	public CargoPlane() {
 	}
@@ -9,11 +9,9 @@ public class CargoPlane extends Jet {
 		super(model, speed, range, price);
 	}
 	
-	public void loadCargo() {
-		
-	}
+	
 	public double getSpeedInLightYears() {
-		double speedInlightYears = (getSpeed() / 670616629);
+		double speedInlightYears = (getSpeed() / 60616629);
 		System.out.println(speedInlightYears + " light years");
 		
 		
@@ -27,5 +25,12 @@ public class CargoPlane extends Jet {
 		
 		
 	}
+
+	@Override
+	public void loadCargo() {
+		
+	}
+	
+
 	
 }

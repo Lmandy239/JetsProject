@@ -35,6 +35,11 @@ public abstract class Jet {
 	public void setModel(String model) {
 		this.model = model;
 	}
+
+	@Override
+	public String toString() {
+		return "The jet is a " + model + ", with a speed of " + speed + ", and a range of " + range + ", the price is " + price ;
+	}
 	
 
 	
